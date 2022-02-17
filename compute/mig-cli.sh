@@ -8,3 +8,10 @@ gcloud compute instance-templates create study-web-dev-1 \
 --boot-disk-size=10GB \
 --boot-disk-type=pd-balanced \
 --boot-disk-device-name=study-web-dev-1
+
+# health check 사용을 위해 프로브 IP대역 허용
+gcloud compute firewall-rules create allow-http-ingress-from-healthcheck \
+    --action allow \
+    --direction ingress \
+    --rules tcp:80 \
+    --source-ranges 130.211.0.0/22,35.191.0.0/16
