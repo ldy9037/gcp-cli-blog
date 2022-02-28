@@ -92,3 +92,8 @@ gcloud compute instance-groups managed create-instance study-managed-instance-gr
 --instance study-web-dev-metadata \
 --zone=asia-northeast3-a \
 --stateful-metadata test-metadata=emadam
+
+# 인스턴스 수동 생성
+gcloud compute instance-groups managed create-instance study-managed-instance-group-windows \
+  --instance study-web-dev-metadata-2 \
+  --zone=asia-northeast3-a
