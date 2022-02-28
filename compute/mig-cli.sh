@@ -81,3 +81,8 @@ gcloud compute instance-groups managed create study-managed-instance-group-windo
 --zone=asia-northeast3-a \
 --health-check=http-health-check \
 --initial-delay=300
+
+# 스테이트풀 정책으로 스테이트풀 디스크 구성
+gcloud compute instance-groups managed update study-managed-instance-group-windows \
+--zone=asia-northeast3-a \
+--stateful-disk device-name=study-web-dev-3,auto-delete=on-permanent-instance-deletion
