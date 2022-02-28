@@ -72,3 +72,12 @@ gcloud compute instance-templates create study-web-dev-3 \
 --boot-disk-size=50GB \
 --boot-disk-type=pd-balanced \
 --boot-disk-device-name=study-web-dev-3
+
+# 윈도우 인스턴스 템플릿을 기반으로 MIG 생성
+gcloud compute instance-groups managed create study-managed-instance-group-windows \
+--base-instance-name=study-web-dev \
+--template=study-web-dev-3 \
+--size=1 \
+--zone=asia-northeast3-a \
+--health-check=http-health-check \
+--initial-delay=300
