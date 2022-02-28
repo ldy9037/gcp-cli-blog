@@ -45,3 +45,7 @@ gcloud compute instance-templates create study-web-dev-2 \
 gcloud compute instance-groups managed set-instance-template study-managed-instance-group \
 --template=study-web-dev-2 \
 --zone=asia-northeast3-a
+
+# 인스턴스 그룹내 생성되어 있는 인스턴스 교체
+gcloud compute instance-groups managed rolling-action replace study-managed-instance-group \
+--zone=asia-northeast3-a
