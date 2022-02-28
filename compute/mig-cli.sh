@@ -49,3 +49,17 @@ gcloud compute instance-groups managed set-instance-template study-managed-insta
 # 인스턴스 그룹내 생성되어 있는 인스턴스 교체
 gcloud compute instance-groups managed rolling-action replace study-managed-instance-group \
 --zone=asia-northeast3-a
+
+# 오토스케일링 설정
+gcloud compute instance-groups managed set-autoscaling study-managed-instance-group \
+--zone asia-northeast3-a \
+--cool-down-period "60" \
+--max-num-replicas "3" \
+--min-num-replicas "1" \
+--set-schedule "business-hours" \
+--schedule-cron "0 9 * * 1-5" \
+--schedule-min-required-replicas 2 \
+--target-cpu-utilization "0.6" \
+--schedule-duration-sec 32400 \
+--schedule-time-zone "Asia/Seoul" \
+--mode "on"
