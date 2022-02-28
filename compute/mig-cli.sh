@@ -97,3 +97,9 @@ gcloud compute instance-groups managed create-instance study-managed-instance-gr
 gcloud compute instance-groups managed create-instance study-managed-instance-group-windows \
   --instance study-web-dev-metadata-2 \
   --zone=asia-northeast3-a
+
+# 스테이트풀 메타데이터 적용을 위해 인스턴스별 구성 추가 
+gcloud compute instance-groups managed instance-configs create study-managed-instance-group-windows \
+--instance study-web-dev-metadata-2 \
+--zone asia-northeast3-a \
+--stateful-metadata test-metadata-2=emadam-2
