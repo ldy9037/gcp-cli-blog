@@ -63,3 +63,12 @@ gcloud compute instance-groups managed set-autoscaling study-managed-instance-gr
 --schedule-duration-sec 32400 \
 --schedule-time-zone "Asia/Seoul" \
 --mode "on"
+
+# 윈도우 인스턴스 템플릿 생성
+gcloud compute instance-templates create study-web-dev-3 \
+--machine-type=f1-micro \
+--image=windows-server-2019-dc-v20211216 \
+--image-project=windows-cloud \
+--boot-disk-size=50GB \
+--boot-disk-type=pd-balanced \
+--boot-disk-device-name=study-web-dev-3
