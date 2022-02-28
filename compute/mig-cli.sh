@@ -40,3 +40,8 @@ gcloud compute instance-templates create study-web-dev-2 \
 --boot-disk-type=pd-balanced \
 --boot-disk-device-name=study-web-dev-2 \
 --metadata-from-file=startup-script=./start_script.sh
+
+# 인스턴스 그룹에서 사용하는 인스턴스 템플릿 변경
+gcloud compute instance-groups managed set-instance-template study-managed-instance-group \
+--template=study-web-dev-2 \
+--zone=asia-northeast3-a
