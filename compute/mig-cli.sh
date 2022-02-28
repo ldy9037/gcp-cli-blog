@@ -86,3 +86,9 @@ gcloud compute instance-groups managed create study-managed-instance-group-windo
 gcloud compute instance-groups managed update study-managed-instance-group-windows \
 --zone=asia-northeast3-a \
 --stateful-disk device-name=study-web-dev-3,auto-delete=on-permanent-instance-deletion
+
+# 스테이트풀 메타데이터 구성을 가지고 있는 인스턴스 수동 생성
+gcloud compute instance-groups managed create-instance study-managed-instance-group-windows \
+--instance study-web-dev-metadata \
+--zone=asia-northeast3-a \
+--stateful-metadata test-metadata=emadam
