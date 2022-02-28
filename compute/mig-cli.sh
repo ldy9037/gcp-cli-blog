@@ -25,8 +25,18 @@ gcloud compute health-checks create http http-health-check \
 # MIG 생성
 gcloud compute instance-groups managed create study-managed-instance-group \
 --base-instance-name=study-web-dev \
---template=study-web-dev-2 \
+--template=study-web-dev-1 \
 --size=1 \
 --zone=asia-northeast3-a \
 --health-check=http-health-check \
 --initial-delay=300
+
+# start script를 metadata로 사용하는 instance template 생성
+gcloud compute instance-templates create study-web-dev-2 \
+--machine-type=f1-micro \
+--image=ubuntu-minimal-2004-focal-v20211209 \
+--image-project=ubuntu-os-cloud \
+--boot-disk-size=10GB \
+--boot-disk-type=pd-balanced \
+--boot-disk-device-name=study-web-dev-2 \
+--metadata-from-file=startup-script=./start_script.sh
