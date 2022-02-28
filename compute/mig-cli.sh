@@ -21,3 +21,12 @@ gcloud compute health-checks create http http-health-check \
     --request-path=/ \
     --check-interval=30s \
     --port 80
+
+# MIG 생성
+gcloud compute instance-groups managed create study-managed-instance-group \
+--base-instance-name=study-web-dev \
+--template=study-web-dev-2 \
+--size=1 \
+--zone=asia-northeast3-a \
+--health-check=http-health-check \
+--initial-delay=300
