@@ -129,3 +129,10 @@ gcloud compute addresses delete $addresses --region=asia-northeast3
 # 고정 IP주소 예약
 gcloud compute addresses create study-address-1 \
 --region=asia-northeast3
+
+# 인스턴스별 구성에 스테이트풀 IP 구성 옵션 추가 
+gcloud beta compute instance-groups managed instance-configs update study-managed-instance-group-windows \
+    --instance study-web-dev-metadata-2 \
+    --stateful-internal-ip address=10.178.0.51 \
+    --stateful-external-ip address=projects/project-name/regions/asia-northeast3/addresses/study-address-1 \
+   --zone=asia-northeast3-a
