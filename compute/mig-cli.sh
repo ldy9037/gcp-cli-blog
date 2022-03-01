@@ -109,3 +109,6 @@ gcloud beta compute instance-groups managed update study-managed-instance-group-
     --stateful-internal-ip enabled \
     --stateful-external-ip enabled \
    --zone asia-northeast3-a
+
+# 전체 네트워크 인터페이스 이름 확인
+gcloud compute instance-templates describe study-web-dev-3 --format=json | jq .properties.networkInterfaces[].name | tr -d '"'
