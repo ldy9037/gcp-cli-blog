@@ -103,3 +103,9 @@ gcloud compute instance-groups managed instance-configs create study-managed-ins
 --instance study-web-dev-metadata-2 \
 --zone asia-northeast3-a \
 --stateful-metadata test-metadata-2=emadam-2
+
+# 스테이트풀 정책으로 스테이트풀 IP 구성
+gcloud beta compute instance-groups managed update study-managed-instance-group-windows \
+    --stateful-internal-ip enabled \
+    --stateful-external-ip enabled \
+   --zone asia-northeast3-a
