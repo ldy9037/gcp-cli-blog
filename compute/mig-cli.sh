@@ -126,3 +126,6 @@ addresses=`gcloud compute addresses list | awk '{ print $1 }' | grep study | tr 
 
 gcloud compute addresses delete $addresses --region=asia-northeast3
 
+# 고정 IP주소 예약
+gcloud compute addresses create study-address-1 \
+--region=asia-northeast3
