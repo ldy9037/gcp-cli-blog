@@ -120,3 +120,9 @@ gcloud beta compute instance-groups managed update study-managed-instance-group-
     --remove-stateful-internal-ips $interface_name \
     --remove-stateful-external-ips $interface_name \
    --zone asia-northeast3-a
+
+# 예약된 고정 IP 주소 전부 해제 
+addresses=`gcloud compute addresses list | awk '{ print $1 }' | grep study | tr '\n' ' '`
+
+gcloud compute addresses delete $addresses --region=asia-northeast3
+
