@@ -25,3 +25,17 @@ gcloud compute routers nats create emadam-test-nat \
     --auto-allocate-nat-external-ips \
     --nat-all-subnet-ip-ranges \
     --region=asia-northeast3
+
+# VM Instance 생성
+gcloud compute instances create emadam-test-vm \
+--zone=asia-northeast3-a \
+--machine-type=e2-micro \
+--subnet=emadam-test-subnet \
+--no-address \
+--image=rocky-linux-8-optimized-gcp-v20240611 \
+--image-project=rocky-linux-cloud \
+--boot-disk-size=20GB \
+--boot-disk-type=pd-balanced \
+--boot-disk-device-name=emadam-test-vm \
+--scopes=cloud-platform \
+--metadata-from-file=startup_script=./startup_script.sh
