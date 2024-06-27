@@ -38,4 +38,29 @@ gcloud compute instances create emadam-test-vm \
 --boot-disk-type=pd-balanced \
 --boot-disk-device-name=emadam-test-vm \
 --scopes=cloud-platform \
---metadata-from-file=startup_script=./startup_script.sh
+--metadata-from-file=startup_script=startup_script.sh
+
+# Prober 접근을 허용하는 방화벽 규칙 생성
+gcloud compute firewall-rules create emadam-test-rule \
+    --network=emadam-test-vpc \
+    --action=allow \
+    --direction=ingress \
+    --rules=tcp:80 \
+    --source-ranges=130.211.0.0/22,35.191.0.0/16 
+
+# 비관리형 인스턴스 그룹 생성
+gcloud compute instance-groups unmanaged create emadam-test-ig \
+    --zone=asia-northeast3-a
+
+# 인스턴스 그룹에 인스턴스 추가
+gcloud compute instance-groups unmanaged add-instances emadam-test-ig \
+    --zone=asia-northeast3-a \
+    --instances=emadam-test-vm
+
+# 인스턴스 그룹에 이름이 지정된 포트 추가
+gcloud compute instance-groups set-named-ports emadam-test-ig \
+    --named-ports http:80 \
+    --zone asia-northeast3-a
+
+
+
