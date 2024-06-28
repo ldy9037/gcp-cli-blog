@@ -28,17 +28,17 @@ gcloud compute routers nats create emadam-test-nat \
 
 # VM Instance 생성
 gcloud compute instances create emadam-test-vm \
---zone=asia-northeast3-a \
---machine-type=e2-micro \
---subnet=emadam-test-subnet \
---no-address \
---image=rocky-linux-8-optimized-gcp-v20240611 \
---image-project=rocky-linux-cloud \
---boot-disk-size=20GB \
---boot-disk-type=pd-balanced \
---boot-disk-device-name=emadam-test-vm \
---scopes=cloud-platform \
---metadata-from-file=startup_script=startup_script.sh
+    --zone=asia-northeast3-a \
+    --machine-type=e2-micro \
+    --subnet=emadam-test-subnet \
+    --no-address \
+    --image=rocky-linux-8-optimized-gcp-v20240611 \
+    --image-project=rocky-linux-cloud \
+    --boot-disk-size=20GB \
+    --boot-disk-type=pd-balanced \
+    --boot-disk-device-name=emadam-test-vm \
+    --scopes=cloud-platform \
+    --metadata-from-file=startup_script=startup_script.sh
 
 # Prober 접근을 허용하는 방화벽 규칙 생성
 gcloud compute firewall-rules create emadam-test-rule \
@@ -62,5 +62,31 @@ gcloud compute instance-groups set-named-ports emadam-test-ig \
     --named-ports http:80 \
     --zone asia-northeast3-a
 
+# 외부 고정 IP 생성
+gcloud compute addresses create emadam-test-external-ip \
+    --ip-version=IPV4 \
+    --global
 
+# 관리형 Zone 생성
+gcloud dns managed-zones create emadam-test-zone \
+    --dns-name=<domain> \
+    --description="For Cloud Armor testing"
 
+# 로드밸런서용 Record 생성
+gcloud dns record-sets transaction start \
+    --zone=emadam-test-zone
+
+EXTERNAL_IP=`gcloud beta compute addresses describe emadam-test-external-ip --global | grep ^address: | awk '{ print $2 }'`
+gcloud dns record-sets transaction add $EXTERNAL_IP \
+    --name=test-lb.<domain> \
+    --ttl=300 \
+    --type=A \
+    --zone=emadam-test-zone
+
+gcloud dns record-sets transaction execute \
+    --zone=emadam-test-zone
+
+# 관리형 SSL 인증서 생성
+gcloud compute ssl-certificates create emadam-test-ssl \
+    --domains=test-lb.<domain> \
+    --global
