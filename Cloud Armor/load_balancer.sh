@@ -90,3 +90,23 @@ gcloud dns record-sets transaction execute \
 gcloud compute ssl-certificates create emadam-test-ssl \
     --domains=test-lb.<domain> \
     --global
+
+# 상태확인 생성
+gcloud compute health-checks create http emadam-test-health-check \
+    --request-path=/ \
+    --check-interval=5s \
+    --port 80
+
+# 백엔드 서비스 생성
+gcloud compute backend-services create emadam-test-backend-service \
+    --protocol=HTTP \
+    --port-name=http \
+    --health-checks=emadam-test-health-check \
+    --connection-draining-timeout=300 \
+    --global
+
+# 백엔드 추가
+gcloud compute backend-services add-backend emadam-test-backend-service \
+    --instance-group=emadam-test-ig \
+    --instance-group-zone=asia-northeast3-a \
+    --global
