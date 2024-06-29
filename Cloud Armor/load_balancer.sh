@@ -29,7 +29,7 @@ gcloud compute routers nats create emadam-test-nat \
 # VM Instance 생성
 gcloud compute instances create emadam-test-vm \
     --zone=asia-northeast3-a \
-    --machine-type=e2-micro \
+    --machine-type=e2-medium \
     --subnet=emadam-test-subnet \
     --no-address \
     --image=rocky-linux-8-optimized-gcp-v20240611 \
@@ -38,7 +38,7 @@ gcloud compute instances create emadam-test-vm \
     --boot-disk-type=pd-balanced \
     --boot-disk-device-name=emadam-test-vm \
     --scopes=cloud-platform \
-    --metadata-from-file=startup_script=startup_script.sh
+    --metadata-from-file=startup-script=startup_script.sh
 
 # Prober 접근을 허용하는 방화벽 규칙 생성
 gcloud compute firewall-rules create emadam-test-rule \
@@ -110,3 +110,19 @@ gcloud compute backend-services add-backend emadam-test-backend-service \
     --instance-group=emadam-test-ig \
     --instance-group-zone=asia-northeast3-a \
     --global
+
+# URL MAP 생성
+gcloud compute url-maps create emadam-test-url-map \
+    --default-service emadam-test-backend-service
+
+# Target Proxy 생성
+gcloud compute target-https-proxies create emadam-test-target-proxy \
+    --url-map=emadam-test-url-map \
+    --ssl-certificates=emadam-test-ssl 
+
+# Forwarding Rule 추가
+gcloud compute forwarding-rules create emadam-test-forwarding-rule \
+    --address=emadam-test-external-ip \
+    --global \
+    --target-https-proxy=emadam-test-target-proxy \
+    --ports=443
