@@ -17,7 +17,13 @@ gcloud compute backend-services describe emadam-test-backend-service \
     --global | grep securityPolicy | awk '{ print $2 }'
 
 # IP 차단 규칙 생성
-gcloud compute security-policies rules create 1 \
+gcloud compute security-policies rules create 10 \
     --security-policy emadam-test-security-policy \
     --src-ip-ranges "211.243.179.113" \
     --action "deny-403"
+
+# IP 허용 규칙 생성
+gcloud compute security-policies rules create 9 \
+    --security-policy emadam-test-security-policy \
+    --src-ip-ranges "211.243.179.113" \
+    --action "allow"
