@@ -27,3 +27,10 @@ gcloud compute security-policies rules create 9 \
     --security-policy emadam-test-security-policy \
     --src-ip-ranges "211.243.179.113" \
     --action "allow"
+
+# REQUEST-932-APPLICATION-ATTACK-RCE - 932200 Rule
+gcloud compute security-policies rules create 8 \
+	--project=infra-common-dev \
+	--action=deny-403 \
+	--security-policy=emadam-test-security-policy \
+	--expression=request.headers\[\'cookie\'\].lower\(\).urlDecodeUni\(\).matches\(\"\[\*\?\`\\\'\]\[^/\[:space:\]\]\+/\|\[\$\]\[\(\{\[\[:alnum:\]\]\|/\[^/\]\+\?\[\*\?\`\\\'\]\"\)\ $'\n'\|\|\ $'\n'request.query.lower\(\).urlDecodeUni\(\).matches\(\"\[\*\?\`\\\'\]\[^/\[:space:\]\]\+/\|\[\$\]\[\(\{\[\[:alnum:\]\]\|/\[^/\]\+\?\[\*\?\`\\\'\]\"\)
