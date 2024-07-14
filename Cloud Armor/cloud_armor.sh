@@ -34,3 +34,7 @@ gcloud compute security-policies rules create 8 \
 	--action=deny-403 \
 	--security-policy=emadam-test-security-policy \
 	--expression=request.headers\[\'cookie\'\].lower\(\).urlDecodeUni\(\).matches\(\"\[\*\?\`\\\'\]\[^/\[:space:\]\]\+/\|\[\$\]\[\(\{\[\[:alnum:\]\]\|/\[^/\]\+\?\[\*\?\`\\\'\]\"\)\ $'\n'\|\|\ $'\n'request.query.lower\(\).urlDecodeUni\(\).matches\(\"\[\*\?\`\\\'\]\[^/\[:space:\]\]\+/\|\[\$\]\[\(\{\[\[:alnum:\]\]\|/\[^/\]\+\?\[\*\?\`\\\'\]\"\)
+
+# 보안 정책 로그 설정
+gcloud compute security-policies update emadam-test-security-policy \
+    --log-level=VERBOSE

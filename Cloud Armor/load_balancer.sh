@@ -103,6 +103,7 @@ gcloud compute backend-services create emadam-test-backend-service \
     --port-name=http \
     --health-checks=emadam-test-health-check \
     --connection-draining-timeout=300 \
+    --enable-logging \
     --global
 
 # 백엔드 추가
