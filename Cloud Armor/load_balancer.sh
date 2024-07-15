@@ -127,3 +127,7 @@ gcloud compute forwarding-rules create emadam-test-forwarding-rule \
     --global \
     --target-https-proxy=emadam-test-target-proxy \
     --ports=443
+
+# Forwarding Rule 제거
+gcloud compute forwarding-rules delete emadam-test-forwarding-rule \
+    --global
