@@ -173,3 +173,7 @@ gcloud compute instance-groups unmanaged delete emadam-test-ig \
 
 # Prober 접근을 허용하는 방화벽 규칙 제거
 gcloud compute firewall-rules delete emadam-test-rule 
+
+# VM Instance 제거
+gcloud compute instances delete emadam-test-vm \
+    --zone=asia-northeast3-a 
