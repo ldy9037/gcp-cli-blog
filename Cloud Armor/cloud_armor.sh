@@ -38,3 +38,7 @@ gcloud compute security-policies rules create 8 \
 # 보안 정책 로그 설정
 gcloud compute security-policies update emadam-test-security-policy \
     --log-level=VERBOSE
+
+# 백엔드 보안 정책 제거
+gcloud compute security-policies delete emadam-test-security-policy \
+    --global
