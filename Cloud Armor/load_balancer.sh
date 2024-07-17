@@ -131,3 +131,6 @@ gcloud compute forwarding-rules create emadam-test-forwarding-rule \
 # Forwarding Rule 제거
 gcloud compute forwarding-rules delete emadam-test-forwarding-rule \
     --global
+
+# Target Proxy 제거
+gcloud compute target-https-proxies delete emadam-test-target-proxy 
