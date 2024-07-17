@@ -141,3 +141,7 @@ gcloud compute url-maps delete emadam-test-url-map
 # 백엔드 서비스 제거
 gcloud compute backend-services delete emadam-test-backend-service \
     --global
+
+# 관리형 SSL 인증서 제거
+gcloud compute ssl-certificates delete emadam-test-ssl \
+    --global
