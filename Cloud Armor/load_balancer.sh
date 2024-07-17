@@ -159,3 +159,6 @@ gcloud dns record-sets transaction remove $EXTERNAL_IP \
 
 gcloud dns record-sets transaction execute \
     --zone=emadam-test-zone
+
+# 관리형 Zone 제거
+gcloud dns managed-zones delete emadam-test-zone
