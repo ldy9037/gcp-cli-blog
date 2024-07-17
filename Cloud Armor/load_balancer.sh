@@ -137,3 +137,7 @@ gcloud compute target-https-proxies delete emadam-test-target-proxy
 
 # URL MAP 제거
 gcloud compute url-maps delete emadam-test-url-map 
+
+# 백엔드 서비스 제거
+gcloud compute backend-services delete emadam-test-backend-service \
+    --global
