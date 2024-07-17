@@ -177,3 +177,7 @@ gcloud compute firewall-rules delete emadam-test-rule
 # VM Instance 제거
 gcloud compute instances delete emadam-test-vm \
     --zone=asia-northeast3-a 
+
+# Cloud Router 제거
+gcloud compute routers delete emadam-test-router \
+    --region=asia-northeast3
