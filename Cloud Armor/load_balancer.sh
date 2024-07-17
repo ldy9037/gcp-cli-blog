@@ -181,3 +181,10 @@ gcloud compute instances delete emadam-test-vm \
 # Cloud Router 제거
 gcloud compute routers delete emadam-test-router \
     --region=asia-northeast3
+
+# Subnet 제거
+gcloud compute networks subnets delete emadam-test-subnet \
+    --region=asia-northeast3
+
+# VPC 제거
+gcloud compute networks delete emadam-test-vpc 
