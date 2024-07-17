@@ -145,3 +145,17 @@ gcloud compute backend-services delete emadam-test-backend-service \
 # 관리형 SSL 인증서 제거
 gcloud compute ssl-certificates delete emadam-test-ssl \
     --global
+
+# 로드밸런서용 Record 제거
+gcloud dns record-sets transaction start \
+    --zone=emadam-test-zone
+
+EXTERNAL_IP=`gcloud beta compute addresses describe emadam-test-external-ip --global | grep ^address: | awk '{ print $2 }'`
+gcloud dns record-sets transaction remove $EXTERNAL_IP \
+    --name=test-lb.<domain> \
+    --ttl=300 \
+    --type=A \
+    --zone=emadam-test-zone
+
+gcloud dns record-sets transaction execute \
+    --zone=emadam-test-zone
