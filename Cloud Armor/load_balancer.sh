@@ -164,5 +164,9 @@ gcloud dns record-sets transaction execute \
 gcloud dns managed-zones delete emadam-test-zone
 
 # 외부 고정 IP 제거
-gcloud compute addresses delete emadam-test-external-ip 
+gcloud compute addresses delete emadam-test-external-ip \
     --global
+
+# 비관리형 인스턴스 그룹 제거
+gcloud compute instance-groups unmanaged delete emadam-test-ig \
+    --zone=asia-northeast3-a
